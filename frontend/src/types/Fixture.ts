@@ -4,7 +4,7 @@ export interface Fixture {
   fixture_type: string;
   position_x: string;
   position_y: string;
-  dmx_address: string;
+  dmx_address: number;
   channel_count: number;
   color_mode: string;
 }

@@ -1,5 +1,11 @@
 import { StatusBadge } from "./StatusBadge";
 
-export function FixtureIcon({ title = "FixtureIcon", value = "READY" }: { title?: string; value?: string }) {
-  return <div className="shared-widget"><strong>{title}</strong><StatusBadge value={value} /></div>;
+export function FixtureIcon({ title = "FixtureIcon", value }: { title?: string; value?: string }) {
+  return (
+    <span className="fixture-icon">
+      <span className="fixture-dot" aria-hidden="true" />
+      <strong>{title}</strong>
+      {value ? <StatusBadge value={value} /> : null}
+    </span>
+  );
 }

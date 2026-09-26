@@ -1,6 +1,6 @@
 # 舞台灯光编排模拟器
 
-纯前端舞台灯光编排工具，支持灯具通道、场景 Cue、时间轴预览和演出方案导出，所有数据存在 IndexedDB。
+纯前端舞台灯光编排工具，支持灯具通道、场景 Cue、时间轴预览和演出方案导出，所有数据保存在浏览器本地存储（localStorage，键前缀 `stage-light:`），首次打开自动写入种子数据。
 
 ## 快速启动
 
@@ -14,6 +14,14 @@ cp .env.example .env && docker compose up -d
 
 
 
+## 布置台与联调规则
+
+- **灯具布置台 `/fixtures`**：录入编号、类型、位置、起始地址、通道数、颜色模式；地址段 = 起始地址 ~ 起始地址 + 通道数 - 1。
+- 保存时校验：地址段与已有灯具重叠、或越过 512 通道上限时**不写入**，并提示具体与哪盏灯冲突（`utils/dmx.ts` + `hooks/useDmxAddressCheck.ts`，API 层二次拦截）。
+- 已进入场景的灯具按规则保留在布置表中，删除按钮禁用并提示占用它的场景。
+- 列表实时显示每盏灯的地址段、DMX 512 通道占用条和"场景中 / 空闲"状态。
+- **时间轴编排 `/timeline`**：锁定的轨道时段只读，保存时段会被拒绝并提示"轨道已锁定，不接受时段调整"；解锁后才能调整。
+
 ## 本地开发方式
 
 - 前端：`cd frontend && npm install && npm run dev`
@@ -24,7 +32,7 @@ cp .env.example .env && docker compose up -d
 
 | 层 | 技术 |
 |---|---|
-| 前端 | React 18 + TypeScript + Vite + Tailwind CSS + Redux Toolkit + IndexedDB |
+| 前端 | React 18 + TypeScript + Vite + Tailwind CSS + Redux Toolkit + 浏览器本地存储（localStorage） |
 | 后端 | - |
 | 数据库 | 本地模拟数据 |
 | 部署 | Docker Compose |

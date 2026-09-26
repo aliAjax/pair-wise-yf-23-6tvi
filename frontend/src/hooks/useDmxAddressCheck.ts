@@ -1,8 +1,20 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
+import type { Fixture } from "../types/Fixture";
+import { checkDmxRange, dmxRangeOf, occupiedChannels, type DmxCheckResult } from "../utils/dmx";
+import { DMX_UNIVERSE_SIZE } from "../constants/dmx";
 
-export function useDmxAddressCheck<T>(rows: T[] = []) {
-  const [page, setPage] = useState(1);
-  const pageSize = 8;
-  const pageRows = useMemo(() => rows.slice((page - 1) * pageSize, page * pageSize), [rows, page]);
-  return { page, setPage, pageSize, pageRows, total: rows.length };
+export function useDmxAddressCheck(rows: Fixture[] = []) {
+  const segments = useMemo(
+    () => rows.map((fixture) => ({ fixture, range: dmxRangeOf(fixture) })),
+    [rows]
+  );
+  const occupied = useMemo(() => occupiedChannels(rows), [rows]);
+  const check = (start: number, channelCount: number, excludeId?: number): DmxCheckResult =>
+    checkDmxRange(rows, start, channelCount, excludeId);
+  return {
+    segments,
+    occupied,
+    free: DMX_UNIVERSE_SIZE - occupied,
+    check
+  };
 }
