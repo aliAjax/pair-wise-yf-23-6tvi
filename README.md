@@ -40,6 +40,13 @@ frontend/src/api, stores, types, constants, constructors, components/common, hoo
 - `COMPOSE_PROJECT_NAME`: Compose 项目名，默认 `stage-light`
 - `FRONTEND_PORT`: 前端端口，默认 `20113`
 
+## 灯具布置台（/fixtures）
+
+- 录入字段：编号、类型、位置 X/Y、起始地址、通道数、颜色模式；颜色模式会带出默认通道数（RGB 3 / RGBW 4 / DIMMER_ONLY 1 / MOVING_HEAD 16）。
+- 地址段 = 起始地址 … 起始地址 + 通道数 - 1；与已有灯具重叠或越过 512 时保存不写入，提示中指明冲突灯具并在布置表和地址占用条上高亮。
+- 已进入场景（被 CueScene 的 fixture_states 引用）的灯具不可移除，留在布置表中；列表展示每盏灯的地址占用和锁定状态。
+- 时间轴编排（/timeline）中锁定的轨道不接受时段调整，解锁后才可修改开始/时长。
+- 记录保存在浏览器 localStorage：`stage-light.fixtures`、`stage-light.cueScenes`、`stage-light.timelineTracks`，清除站点数据即可重置为种子数据。
 
 ## Docker 部署说明
 
@@ -53,6 +60,7 @@ frontend/src/api, stores, types, constants, constructors, components/common, hoo
 - FixtureType: constants/FixtureType、types/FixtureType、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
 - CueStatus: constants/CueStatus、types/CueStatus、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
 - ChannelMode: constants/ChannelMode、types/ChannelMode、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
+- DMX 校验相关：错误码 constants/errorCodes、错误消息 constants/errorMessages、地址段检查 hooks/useDmxAddressCheck、范围格式化 utils/formatters，被 FixtureStore 与 FixturesPage 共同引用。
 
 ## 为什么会牵一发动全身
 

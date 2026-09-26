@@ -2,61 +2,81 @@ export const mockData = {
   "fixture": [
     {
       "id": 1,
-      "fixture_code": "fixture code 1",
+      "fixture_code": "F-01",
       "fixture_type": "SPOT",
-      "position_x": "position x 1",
-      "position_y": "position y 1",
-      "dmx_address": "dmx address 1",
-      "channel_count": "channel count 1",
-      "color_mode": "color mode 1"
+      "position_x": "1.5",
+      "position_y": "0.8",
+      "dmx_address": "1",
+      "channel_count": 16,
+      "color_mode": "MOVING_HEAD"
     },
     {
       "id": 2,
-      "fixture_code": "fixture code 2",
+      "fixture_code": "F-02",
       "fixture_type": "WASH",
-      "position_x": "position x 2",
-      "position_y": "position y 2",
-      "dmx_address": "dmx address 2",
-      "channel_count": "channel count 2",
-      "color_mode": "color mode 2"
+      "position_x": "3.0",
+      "position_y": "0.8",
+      "dmx_address": "17",
+      "channel_count": 4,
+      "color_mode": "RGBW"
     },
     {
       "id": 3,
-      "fixture_code": "fixture code 3",
+      "fixture_code": "F-03",
+      "fixture_type": "PAR",
+      "position_x": "4.5",
+      "position_y": "0.8",
+      "dmx_address": "21",
+      "channel_count": 3,
+      "color_mode": "RGB"
+    },
+    {
+      "id": 4,
+      "fixture_code": "F-04",
       "fixture_type": "BEAM",
-      "position_x": "position x 3",
-      "position_y": "position y 3",
-      "dmx_address": "dmx address 3",
-      "channel_count": "channel count 3",
-      "color_mode": "color mode 3"
+      "position_x": "6.0",
+      "position_y": "0.8",
+      "dmx_address": "33",
+      "channel_count": 12,
+      "color_mode": "MOVING_HEAD"
+    },
+    {
+      "id": 5,
+      "fixture_code": "F-05",
+      "fixture_type": "STROBE",
+      "position_x": "7.5",
+      "position_y": "0.8",
+      "dmx_address": "45",
+      "channel_count": 1,
+      "color_mode": "DIMMER_ONLY"
     }
   ],
   "cueScene": [
     {
       "id": 1,
-      "name": "name 1",
-      "fixture_states": "fixture states 1",
-      "fade_in_ms": "fade in ms 1",
-      "hold_ms": "hold ms 1",
-      "priority": "priority 1",
+      "name": "开场暖场",
+      "fixture_states": "[{\"fixture_id\":1,\"dimmer\":60,\"color\":\"#ffb347\"},{\"fixture_id\":2,\"dimmer\":80,\"color\":\"#ff5f3c\"}]",
+      "fade_in_ms": "800",
+      "hold_ms": "4000",
+      "priority": "1",
       "scene_status": "READY"
     },
     {
       "id": 2,
-      "name": "name 2",
-      "fixture_states": "fixture states 2",
-      "fade_in_ms": "fade in ms 2",
-      "hold_ms": "hold ms 2",
-      "priority": "priority 2",
+      "name": "逆光扫射",
+      "fixture_states": "[{\"fixture_id\":4,\"dimmer\":100,\"color\":\"#3ca9ff\"}]",
+      "fade_in_ms": "300",
+      "hold_ms": "2000",
+      "priority": "2",
       "scene_status": "DISABLED"
     },
     {
       "id": 3,
-      "name": "name 3",
-      "fixture_states": "fixture states 3",
-      "fade_in_ms": "fade in ms 3",
-      "hold_ms": "hold ms 3",
-      "priority": "priority 3",
+      "name": "全场频闪",
+      "fixture_states": "[{\"fixture_id\":5,\"dimmer\":90,\"color\":\"#ffffff\"}]",
+      "fade_in_ms": "0",
+      "hold_ms": "1500",
+      "priority": "3",
       "scene_status": "DRAFT"
     }
   ],
@@ -64,70 +84,46 @@ export const mockData = {
     {
       "id": 1,
       "cue_scene_id": 1,
-      "start_ms": "start ms 1",
-      "duration_ms": "duration ms 1",
-      "layer": "layer 1",
-      "locked": "locked 1"
+      "start_ms": "0",
+      "duration_ms": "5000",
+      "layer": "1",
+      "locked": "true"
     },
     {
       "id": 2,
       "cue_scene_id": 2,
-      "start_ms": "start ms 2",
-      "duration_ms": "duration ms 2",
-      "layer": "layer 2",
-      "locked": "locked 2"
+      "start_ms": "6000",
+      "duration_ms": "3000",
+      "layer": "1",
+      "locked": "false"
     },
     {
       "id": 3,
       "cue_scene_id": 3,
-      "start_ms": "start ms 3",
-      "duration_ms": "duration ms 3",
-      "layer": "layer 3",
-      "locked": "locked 3"
+      "start_ms": "10000",
+      "duration_ms": "2000",
+      "layer": "2",
+      "locked": "false"
     }
   ],
   "showProject": [
     {
       "id": 1,
-      "title": "title 1",
-      "venue_name": "venue name 1",
+      "title": "夏季巡演·首站",
+      "venue_name": "滨江会展中心",
       "fixture_ids": [
         1,
-        2
+        2,
+        3,
+        4,
+        5
       ],
       "track_ids": [
         1,
-        2
+        2,
+        3
       ],
-      "updated_at": "2026-06-11T09:00:00Z"
-    },
-    {
-      "id": 2,
-      "title": "title 2",
-      "venue_name": "venue name 2",
-      "fixture_ids": [
-        1,
-        2
-      ],
-      "track_ids": [
-        1,
-        2
-      ],
-      "updated_at": "2026-06-12T09:00:00Z"
-    },
-    {
-      "id": 3,
-      "title": "title 3",
-      "venue_name": "venue name 3",
-      "fixture_ids": [
-        1,
-        2
-      ],
-      "track_ids": [
-        1,
-        2
-      ],
-      "updated_at": "2026-06-13T09:00:00Z"
+      "updated_at": "2026-09-20T09:00:00Z"
     }
   ]
 } as const;
